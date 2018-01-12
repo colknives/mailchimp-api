@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Lists;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\MailChimpServices;
@@ -22,8 +22,7 @@ class ListsController extends Controller
 
     public function get(){
 
-    	$response = $this->mailChimp->getList();
-    	return response()->json($response, Response::HTTP_OK);
+    	return $this->mailChimp->getList();
 
     }
 
@@ -61,8 +60,7 @@ class ListsController extends Controller
     		'visibility' => $input['visibility']
     	];
 
-    	$response = $this->mailChimp->createList($data);
-    	return response()->json($response, Response::HTTP_OK);
+    	return $this->mailChimp->createList($data);
 
     }
 
@@ -100,15 +98,13 @@ class ListsController extends Controller
     		'visibility' => $input['visibility']
     	];
 
-    	$response = $this->mailChimp->updateList($id, $data);
-    	return response()->json($response, Response::HTTP_OK);
+    	return $this->mailChimp->updateList($id, $data);
 
     }
 
     public function delete(Request $request, $id){
 
-    	$response = $this->mailChimp->deleteList($id);
-    	return response()->json($response, Response::HTTP_OK);
+    	return $this->mailChimp->deleteList($id);
 
     }
 

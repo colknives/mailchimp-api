@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use Illuminate\Http\Response;
+
 class MailChimpServices
 {
 
@@ -31,7 +33,7 @@ class MailChimpServices
 
 	}
 
-	public function createList($data){
+	public function createList($data = []){
 
 		$this->url = env('MAILCHIMP_URL','').'/lists';
 		$this->method = 'post';
@@ -41,7 +43,7 @@ class MailChimpServices
 
 	}
 
-	public function updateList($id, $data){
+	public function updateList($id, $data = []){
 
 		$this->url = env('MAILCHIMP_URL','').'/lists/'.$id;
 		$this->method = 'patch';
@@ -61,6 +63,46 @@ class MailChimpServices
 
 	}
 
+	public function getMembers($listId){
+
+		$this->url = env('MAILCHIMP_URL','').'/lists/'.$listId.'/members';
+		$this->method = 'get';
+		$this->body = [];
+
+		return $this->request();
+
+	}
+
+	public function addMember($listId, $data = []){
+
+		$this->url = env('MAILCHIMP_URL','').'/lists/'.$listId.'/members';
+		$this->method = 'post';
+		$this->body = $data;
+
+		return $this->request();
+
+	}
+
+	public function updateMember($listId, $email, $data = []){
+
+		$this->url = env('MAILCHIMP_URL','').'/lists/'.$listId.'/members/'.$email;
+		$this->method = 'patch';
+		$this->body = $data;
+
+		return $this->request();
+
+	}
+
+	public function deleteMember($listId, $email){
+
+		$this->url = env('MAILCHIMP_URL','').'/lists/'.$listId.'/members/'.$email;
+		$this->method = 'delete';
+		$this->body = [];
+
+		return $this->request();
+
+	}
+
 	public function request(){
 
 		try{
@@ -73,15 +115,19 @@ class MailChimpServices
 		    ]);
 
 	    }
-	    catch(RequestException $e){
+	    catch(\GuzzleHttp\Exception\ClientException $e){
 
-	    	dd($e);
+	    	$exception = json_decode($e->getResponse()->getBody()->getContents());
 
+	    	$response = [
+	    		'message' => $exception->title
+	    	];
+
+	    	return response()->json($response, $exception->status);
 	    }
 
-		
-
-		return json_decode($res->getBody(), true);
+		$response = json_decode($res->getBody(), true);
+		return response()->json($response, Response::HTTP_OK);
 
 	}
 

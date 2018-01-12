@@ -16,12 +16,18 @@ $app->get('/', function () use ($app) {
 });
 
 
-$app->group(['prefix' => 'mailchimp', 'namespace' => 'Lists', 'middleware' => 'mailchimp'], function() use ($app)
+$app->group(['prefix' => 'mailchimp', 'middleware' => 'mailchimp'], function() use ($app)
 {
 
 	$app->get('list', 'ListsController@get');
 	$app->post('list', 'ListsController@create');
 	$app->patch('list/{id}', 'ListsController@update');
 	$app->delete('list/{id}', 'ListsController@delete');
+
+	
+	$app->get('members/{listId}', 'ListMembersController@get');
+	$app->post('members/{listId}', 'ListMembersController@add');
+	$app->patch('members/{listId}/{email}', 'ListMembersController@update');
+	$app->delete('members/{listId}/{email}', 'ListMembersController@delete');
 
 });
