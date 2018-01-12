@@ -28,6 +28,11 @@ class ListMembersController extends Controller
 
     public function add(Request $request, $listId){
 
+        $this->validate($request, [
+            'email_address' => 'required|email',
+            'status' => 'required'
+        ]);
+
         $input = $request->all();
 
         //Set data for list creation
@@ -41,6 +46,11 @@ class ListMembersController extends Controller
     }
 
     public function update(Request $request, $listId, $email){
+
+        $this->validate($request, [
+            'email_address' => 'required|email',
+            'status' => 'required'
+        ]);
 
         $input = $request->all();
 

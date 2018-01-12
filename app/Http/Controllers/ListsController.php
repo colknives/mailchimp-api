@@ -28,6 +28,18 @@ class ListsController extends Controller
 
     public function create(Request $request){
 
+        $this->validate($request, [
+            'name' => 'required',
+            'company' => 'required',
+            'address1' => 'required',
+            'country' => 'required',
+            'from_name' => 'required',
+            'from_email' => 'required',
+            'subject' => 'required',
+            'permission_reminder' => 'required',
+            'visibility' => 'required'
+        ]);
+
     	$input = $request->all();
 
     	//Set contact data
@@ -65,6 +77,18 @@ class ListsController extends Controller
     }
 
     public function update(Request $request, $id){
+
+        $this->validate($request, [
+            'name' => 'required',
+            'company' => 'required',
+            'address1' => 'required',
+            'country' => 'required',
+            'from_name' => 'required',
+            'from_email' => 'required',
+            'subject' => 'required',
+            'permission_reminder' => 'required',
+            'visibility' => 'required'
+        ]);
 
     	$input = $request->all();
 
