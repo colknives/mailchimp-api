@@ -18,13 +18,13 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'mailchimp', 'middleware' => 'mailchimp'], function() use ($app)
 {
-
+	//Routes for the list apis
 	$app->get('list', 'ListsController@get');
 	$app->post('list', 'ListsController@create');
 	$app->patch('list/{id}', 'ListsController@update');
 	$app->delete('list/{id}', 'ListsController@delete');
 
-	
+	//Routes for the members apis
 	$app->get('members/{listId}', 'ListMembersController@get');
 	$app->post('members/{listId}', 'ListMembersController@add');
 	$app->patch('members/{listId}/{email}', 'ListMembersController@update');

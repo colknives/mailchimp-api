@@ -1,21 +1,14 @@
-# Lumen PHP Framework
+# MailChimp API Handler
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## About
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+This project is consist of APIs which handles request to the Mail Chimp API
 
-## Official Documentation
+## Notes
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+Rename the **.env.example** file to **.env** and fill up the necessary configurations ( e.g. mail chimp api key ). For more information, read [Environmental Configuration](https://laravel.com/docs/5.5/configuration) and [Mail Chimp API Key](https://kb.mailchimp.com/integrations/api-integrations/about-api-keys)
 
-## Security Vulnerabilities
+## Reference
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+1. [Laravel Lumen](https://lumen.laravel.com)
+2. [Mail Chimp API](http://developer.mailchimp.com/)
