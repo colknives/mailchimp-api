@@ -3,6 +3,8 @@
 namespace App\Http\Services;
 
 use Illuminate\Http\Response;
+use App\Lists;
+use App\ListMember;
 
 class MailChimpServices
 {
@@ -104,6 +106,39 @@ class MailChimpServices
 	}
 
 	public function request(){
+
+		try{
+
+	      $res = $this->client->{$this->method}($this->url, [
+		        'headers' => [
+		        	'Authorization' =>  'apikey '.env('MAILCHIMP_API_KEY')
+		       	],
+		       'body' => json_encode($this->body)
+		    ]);
+
+	    }
+	    catch(\GuzzleHttp\Exception\ClientException $e){
+
+	    	$exception = json_decode($e->getResponse()->getBody()->getContents());
+
+	    	$response = [
+	    		'status'  => $exception->status,
+	    		'message' => $exception->title
+	    	];
+
+	    	return $response;
+	    }
+
+	    $response = [
+    		'status'  => 200,
+    		'data' => json_decode($res->getBody(), true)
+    	];
+
+		return $response;
+
+	}
+
+	public function requestApi(){
 
 		try{
 

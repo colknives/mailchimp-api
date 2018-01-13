@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\MailChimpServices;
 use App\Http\Services\ListServices;
 
 use Illuminate\Http\Request;
@@ -11,18 +12,22 @@ use Illuminate\Http\Response;
 class ListsController extends Controller
 {
     
+	protected $mailChimp;
+
     protected $list;
 
     public function __construct(
+        MailChimpServices $mailChimp,
         ListServices $list){
 
+        $this->mailChimp   = $mailChimp;
         $this->list   = $list;
 
     }
 
     public function get(){
 
-    	return $this->list->getList();
+    	return $this->mailChimp->getList();
 
     }
 
@@ -65,9 +70,9 @@ class ListsController extends Controller
     	//Set data for list creation
     	$data = [
     		'name' => $input['name'],
-    		'contact' => json_encode($contact),
+    		'contact' => $contact,
     		'permission_reminder' => $input['permission_reminder'],
-    		'campaign_defaults' => json_encode($campaign_defaults),
+    		'campaign_defaults' => $campaign_defaults,
     		'email_type_option' => false,
     		'visibility' => $input['visibility']
     	];
@@ -114,21 +119,21 @@ class ListsController extends Controller
 
     	//Set data for list creation
     	$data = [
-            'name' => $input['name'],
-            'contact' => json_encode($contact),
-            'permission_reminder' => $input['permission_reminder'],
-            'campaign_defaults' => json_encode($campaign_defaults),
-            'email_type_option' => false,
-            'visibility' => $input['visibility']
-        ];
+    		'name' => $input['name'],
+    		'contact' => $contact,
+    		'permission_reminder' => $input['permission_reminder'],
+    		'campaign_defaults' => $campaign_defaults,
+    		'email_type_option' => false,
+    		'visibility' => $input['visibility']
+    	];
 
-    	return $this->list->updateList($id, $data);
+    	return $this->mailChimp->updateList($id, $data);
 
     }
 
     public function delete(Request $request, $id){
 
-    	return $this->list->deleteList($id);
+    	return $this->mailChimp->deleteList($id);
 
     }
 

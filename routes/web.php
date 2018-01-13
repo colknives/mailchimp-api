@@ -25,9 +25,13 @@ $app->group(['prefix' => 'mailchimp', 'middleware' => 'mailchimp'], function() u
 	$app->delete('list/{id}', 'ListsController@delete');
 
 	//Routes for the members apis
-	$app->get('members/{listId}', 'ListMembersController@get');
-	$app->post('members/{listId}', 'ListMembersController@add');
-	$app->patch('members/{listId}/{email}', 'ListMembersController@update');
-	$app->delete('members/{listId}/{email}', 'ListMembersController@delete');
+	$app->get('list/{listId}/members', 'ListMembersController@get');
+	$app->post('list/{listId}/members', 'ListMembersController@add');
+	$app->patch('list/{listId}/members/{memberId}', 'ListMembersController@update');
+	$app->delete('list/{listId}/members/{memberId}', 'ListMembersController@delete');
+
+
+	$app->get('sync/list', 'SyncController@createList');
+
 
 });
